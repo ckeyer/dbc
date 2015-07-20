@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "github.com/ckeyer/dbc_test/docs"
-	_ "github.com/ckeyer/dbc_test/routers"
+	_ "github.com/ckeyer/dbc/docs"
+	_ "github.com/ckeyer/dbc/routers"
 
 	"github.com/astaxie/beego"
 )

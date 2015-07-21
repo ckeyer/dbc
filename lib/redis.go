@@ -12,6 +12,7 @@ var (
 
 func GetRedis() *redis.Client {
 	if redis_cli == nil {
+		redis_cli = &redis.Client{}
 		redis_cli.Addr = redis_conf.Host + ":" + redis_conf.Port
 		err := redis_cli.Auth(redis_conf.Password)
 		if err != nil {

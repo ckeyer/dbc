@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/ckeyer/dbc/conf"
 	"github.com/ckeyer/dbc/lib"
 )
 
@@ -9,6 +10,7 @@ type TestController struct {
 }
 
 func (u *TestController) Get() {
+	log.Debug("%v", *conf.Conf())
 	r := lib.GetRedis()
 	err := r.Setex("hi", 12, []byte("hello world"))
 	if err != nil {

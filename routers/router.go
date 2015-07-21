@@ -14,5 +14,6 @@ import (
 
 func init() {
 	beego.Router("/", &controllers.DefaultController{})
+	beego.Router("/test", &controllers.TestController{})
 	beego.Include(&controllers.UserController{})
 }

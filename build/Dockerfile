@@ -13,7 +13,7 @@ ADD /build/test.go /test.go
 EXPOSE 8080
 
 CMD cd $GOPATH/src/github.com/ckeyer/dbc && \
-bee run dbc
+go run main.go
 # CMD cd /gopath/app/bin/github.com/ckeyer/dbc/
 # go run /test.go
 

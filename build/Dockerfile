@@ -7,7 +7,7 @@ FROM daocloud.io/golang:1.3-onbuild
 #CMD cd $GOPATH/src/github.com/ckeyer/dbc && \
 #bee run dbc
 
-ADD ./test.go /test.go
+ADD /build/test.go /test.go
 
 EXPOSE 8080
 

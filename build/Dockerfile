@@ -9,7 +9,7 @@ go get github.com/ckeyer/dbc
 
 ADD /build/test.go /test.go
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD go run /test.go
 

@@ -13,5 +13,6 @@ import (
 )
 
 func init() {
+	beego.Router("/", &controllers.DefaultController{})
 	beego.Include(&controllers.UserController{})
 }

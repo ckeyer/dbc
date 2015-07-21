@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"fmt"
 	"github.com/ckeyer/dbc/conf"
 	"github.com/hoisie/redis"
 )
@@ -13,7 +14,9 @@ var (
 func GetRedis() *redis.Client {
 	if redis_cli == nil {
 		redis_cli = &redis.Client{}
-		redis_cli.Addr = redis_conf.Host + ":" + redis_conf.Port
+		connstr := fmt.Sprintf("%s:%s", redis_conf.Host, redis_conf.Port)
+		log.Debug(connstr)
+		redis_cli.Addr = connstr
 		err := redis_cli.Auth(redis_conf.Password)
 		if err != nil {
 			log.Error(err.Error())

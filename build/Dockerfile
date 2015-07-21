@@ -5,14 +5,14 @@ ENV GOPATH /gopath/app
 
 RUN go get github.com/astaxie/beego &&\ 
 go get github.com/beego/bee && \ 
-go get github.com/ckeyer/dbc && \ 
 go get github.com/hoisie/redis && \ 
 go get github.com/go-sql-driver/mysql
 
+EXPOSE 8080
+
+RUN go get github.com/ckeyer/dbc
 
 ADD /build/test.go /test.go
-
-EXPOSE 8080
 
 CMD cd $GOPATH/src/github.com/ckeyer/dbc && \
 go run main.go

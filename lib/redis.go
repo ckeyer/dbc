@@ -17,9 +17,11 @@ func GetRedis() *redis.Client {
 		connstr := fmt.Sprintf("%s:%s", redis_conf.Host, redis_conf.Port)
 		log.Debug(connstr)
 		redis_cli.Addr = connstr
+		if redis_conf.Password != ""{
 		err := redis_cli.Auth(redis_conf.Password)
 		if err != nil {
 			log.Error(err.Error())
+		}
 		}
 	}
 	return redis_cli

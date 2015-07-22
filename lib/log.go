@@ -8,7 +8,7 @@ import (
 var (
 	log    = logpkg.MustGetLogger("example")
 	format = logpkg.MustStringFormatter(
-		"%{color}%{time:15:04:05.000} %{shortfunc} ▶ %{level:.4s} %{id:03x}%{color:reset} %{message}")
+		"%{time:15:04:05} [%{color}%{level:.4s}%{color:reset}] %{shortfile} %{longfunc}%{color} ▶ %{color:reset} %{message}")
 )
 
 func init() {

@@ -23,6 +23,10 @@ func GetRedis() *redis.Client {
 			if err != nil {
 				log.Error(err.Error())
 			}
+			err = redis_cli.Auth("MNZiMQKXAbeOyq6")
+			if err != nil {
+				log.Error(err.Error())
+			}
 		}
 	}
 	return redis_cli

@@ -12,7 +12,7 @@ type TestController struct {
 func (u *TestController) Get() {
 	log.Debug("%v\n%v\n", *conf.Conf().Redis, *conf.Conf().Mysql)
 	r := lib.GetRedis()
-	
+
 	err := r.Set("hi", "hello world", 0).Err()
 	if err != nil {
 		log.Error(err.Error())
@@ -31,4 +31,9 @@ func (u *TestController) Get() {
 		u.Ctx.WriteString("Mysql Test Success\n")
 	}
 	u.Ctx.WriteString("Hello world!!!")
+
+	mgo := lib.GetDB()
+	if mgo != nil {
+		log.Notice("Mgo is Not Nil")
+	}
 }

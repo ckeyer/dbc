@@ -6,6 +6,8 @@
 *~
 dbc
 .fuse*
+.\#*
+.#*
 # Folders
 _obj
 _test

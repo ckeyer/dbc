@@ -5,7 +5,8 @@ ENV GOPATH /gopath/app
 
 RUN go get github.com/astaxie/beego &&\ 
 go get github.com/beego/bee && \ 
-go get gopkg.in/redis.v3 && \ 
+go get gopkg.in/redis.v3 && \
+go get gopkg.in/mgo.v2 && \
 go get github.com/go-sql-driver/mysql && \
 go get github.com/ckeyer/go-log
 

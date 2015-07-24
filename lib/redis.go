@@ -3,7 +3,7 @@ package lib
 import (
 	"fmt"
 	"github.com/ckeyer/dbc/conf"
-	"github.com/hoisie/redis"
+	"github.com/go-redis/redis"
 )
 
 var (
@@ -13,20 +13,16 @@ var (
 
 func GetRedis() *redis.Client {
 	if redis_cli == nil {
-		redis_cli = &redis.Client{}
 		connstr := fmt.Sprintf("%s:%s", redis_conf.Host, redis_conf.Port)
-		log.Debug(connstr)
 		redis_cli.Addr = connstr
-		if redis_conf.Password != ""{
-			log.Debug(redis_conf.Password)
-			err := redis_cli.Auth(redis_conf.Password)
-			if err != nil {
-				log.Error(err.Error())
-			}
-			err = redis_cli.Auth("MNZiMQKXAbeOyq6")
-			if err != nil {
-				log.Error(err.Error())
-			}
+		redis_cli = &redis.NewClient(&redis.Options{
+			Addr:     connstr,
+			Password: redis_conf.Password,
+			DB:      0,
+		})
+		_, err := client.Ping().Result()
+		if err!=nil{
+			log.Error(err.Error())
 		}
 	}
 	return redis_cli

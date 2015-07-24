@@ -3,49 +3,28 @@ package lib
 import (
 	"fmt"
 	"github.com/ckeyer/dbc/conf"
-	"github.com/hoisie/redis"
+	redis "gopkg.in/redis.v3"
 )
 
 var (
-	redis_cli  redis.Client
+	redis_cli  *redis.Client
 	redis_conf = conf.Conf().Redis
 )
 
 func GetRedis() *redis.Client {
-	return &redis_cli
+	return redis_cli
 }
 func init() {
-	var cli redis.Client
-	cli.Addr = "172.17.42.1:6379"
-	cli.Auth("abc")
-
-	bs, err := cli.Get("hi")
-	if err != nil {
-		log.Error("HIHIHIHIHIH:::  ", err.Error())
-	} else {
-		log.Notice("HIHIHIHIHIH:::  ", string(bs))
-	}
-	return
-	connstr := fmt.Sprintf("%s:%s", redis_conf.Host, redis_conf.Port)
-	log.Debug(connstr)
-	redis_cli.Addr = "172.17.42.1:6379"
-	if redis_conf.Password != "" {
-		// log.Debug(redis_conf.Passwor d)
-		// err := redis_cli.Auth(redis_conf.Password)
-		// if err != nil {
-		// 	log.Error(err.Error())
-		// }
-		err := redis_cli.Auth("abc")
-		if err != nil {
+	if redis_cli == nil {
+		connstr := fmt.Sprintf("%s:%s", redis_conf.Host, redis_conf.Port)
+		redis_cli = redis.NewClient(&redis.Options{
+			Addr:     connstr,
+			Password: redis_conf.Password,
+			DB:      0,
+		})
+		_, err := redis_cli.Ping().Result()
+		if err!=nil{
 			log.Error(err.Error())
-		} else {
-			log.Notice("Connect Success")
-		}
-		bs, err := redis_cli.Get("hi")
-		if err != nil {
-			log.Error("HIHIHIHIHIH:::  ", err.Error())
-		} else {
-			log.Notice("HIHIHIHIHIH:::  ", string(bs))
 		}
 	}
 }

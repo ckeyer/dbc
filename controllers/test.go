@@ -12,10 +12,12 @@ type TestController struct {
 func (u *TestController) Get() {
 	log.Debug("%v\n%v\n", *conf.Conf().Redis, *conf.Conf().Mysql)
 	r := lib.GetRedis()
-	err := r.Setex("hi", 12, []byte("hello world"))
-	if err != nil {
-		log.Error(err.Error())
-	}
+	// r.s
+	// err := r.Set("hi", []byte("hello world"))
+	// r.Set("hi", []byte("val"))
+	// if err != nil {
+	// 	log.Error(err.Error())
+	// }
 	bs, err := r.Get("hi")
 	if err != nil {
 		log.Error(err.Error())

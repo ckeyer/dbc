@@ -1,4 +1,4 @@
-package lib
+package mongo
 
 import (
 	"fmt"
@@ -11,22 +11,24 @@ var (
 	mgo_conf = conf.Conf().Mongo
 )
 
-func GetMongo(table string) *mgo.Collection {
+func GetMgoCollection(table string) *mgo.Collection {
 	if db == nil {
-		GetDB()
+		_, err := GetMongo()
+		if err != nil {
+			return nil
+		}
 	}
 	return db.C(table)
 }
 
-func GetDB() *mgo.Database {
+func GetMongo() (*mgo.Database, error) {
 	if db == nil {
 		connstr := fmt.Sprintf("%s:%s/%s", mgo_conf.Host, mgo_conf.Port, mgo_conf.Instance)
 		session, err := mgo.Dial(connstr)
 		if err != nil {
-			log.Error(err.Error())
-			return nil
+			return nil, err
 		}
 		db = session.DB(mgo_conf.Instance)
 	}
-	return db
+	return db, nil
 }

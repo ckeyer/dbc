@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"github.com/ckeyer/dbc/conf"
-	"github.com/ckeyer/dbc/lib"
+	"github.com/ckeyer/dbc/lib/mongo"
+	"github.com/ckeyer/dbc/lib/mysql"
+	"github.com/ckeyer/dbc/lib/redis"
 )
 
 type TestController struct {
@@ -10,10 +11,13 @@ type TestController struct {
 }
 
 func (u *TestController) Get() {
-	log.Debug("%v\n%v\n", *conf.Conf().Redis, *conf.Conf().Mysql)
-	r := lib.GetRedis()
 
-	err := r.Set("hi", "hello world", 0).Err()
+	r, err := redis.GetRedis()
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	err = r.Set("hi", "hello world", 0).Err()
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -24,7 +28,12 @@ func (u *TestController) Get() {
 		log.Notice(string(bs))
 		u.Ctx.WriteString("Redis Test Success :" + string(bs) + "\n")
 	}
-	db := lib.GetMysql()
+
+	db, err := mysql.GetMysql()
+	if err != nil {
+		log.Error(err.Error())
+	}
+
 	if err = db.Ping(); err != nil {
 		log.Error(err.Error())
 	} else {
@@ -32,8 +41,15 @@ func (u *TestController) Get() {
 	}
 	u.Ctx.WriteString("Hello world!!!")
 
-	mgo := lib.GetDB()
+	mgo, err := mongo.GetMongo()
+	if err != nil {
+		log.Error(err.Error())
+	}
+
 	if mgo != nil {
 		log.Notice("Mgo is Not Nil")
+	} else {
+		log.Error("Mgo is Nil")
 	}
+
 }

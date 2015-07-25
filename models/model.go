@@ -1,9 +1,9 @@
 package models
 
 import (
-	"github.com/ckeyer/dbc/lib"
+	"github.com/ckeyer/dbc/lib/logging"
 )
 
 var (
-	log = lib.GetLogger()
+	log = logging.GetLogger()
 )

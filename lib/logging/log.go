@@ -1,4 +1,4 @@
-package lib
+package logging
 
 import (
 	logpkg "github.com/ckeyer/go-log"

@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/ckeyer/dbc/lib"
+	"github.com/ckeyer/dbc/lib/logging"
 )
 
 var (
-	log = lib.GetLogger()
+	log = logging.GetLogger()
 )
 
 type Controller struct {
